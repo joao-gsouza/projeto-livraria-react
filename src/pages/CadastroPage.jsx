@@ -45,7 +45,7 @@ class CadastroPage extends React.Component{
 
         event.preventDefault();
 
-        const listaLivros = {
+        const livro = {
             codigo: this.state.codigo,
             paginas: this.state.paginas,
             nome: this.state.nome,
@@ -54,9 +54,9 @@ class CadastroPage extends React.Component{
         }
 
         axios
-        .post('http://localhost:8080/livro', listaLivros)
+        .post('http://localhost:8080/livro', livro)
         .then(() => {
-            this.props.history.push('/listagem');
+            this.props.history.push('/home');
         })
 
     }

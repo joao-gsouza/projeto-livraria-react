@@ -3,9 +3,10 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import EditarPage from './pages/EditarPage';
+import Editar from './pages/EditarPage';
 import CadastroPage from './pages/CadastroPage';
 import Header from './components/header/Header';
+import DeletePage from './pages/DeletePage';
 
 function App() {
   return (
@@ -18,13 +19,17 @@ function App() {
         <Route path="/cadastro">
           <CadastroPage/>
         </Route>
-        <Route path="/editar">
-          <EditarPage/>
-        </Route>
+
+        <Route path="/editar/:id" children={<Editar/>}/>
+
+        <Route path="/deletar/:id" children={<DeletePage/>}/>
+
         <Redirect from="*" to="/home" />
       </Switch>
     </BrowserRouter>
   );
 }
+
+
 
 export default App;

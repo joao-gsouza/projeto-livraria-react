@@ -1,5 +1,6 @@
 import * as React from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 class HomePage extends React.Component{
 
@@ -43,7 +44,7 @@ class HomePage extends React.Component{
                         {livro.preco}
                     </td>
                     <td>
-                        <button type="button" className="btn btn-link">Editar</button> | <button type="button" className="btn btn-link">Remover</button>
+                        <Link to={'/editar/'+livro.id} className="btn btn-link">Editar</Link> | <button type="button" className="btn btn-link">Remover</button>
                     </td>
                 </tr>
             );
