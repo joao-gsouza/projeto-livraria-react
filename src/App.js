@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage';
 import Editar from './pages/EditarPage';
 import CadastroPage from './pages/CadastroPage';
 import Header from './components/header/Header';
-import DeletePage from './pages/DeletePage';
+import Deletar from './pages/DeletePage';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
 
         <Route path="/editar/:id" children={<Editar/>}/>
 
-        <Route path="/deletar/:id" children={<DeletePage/>}/>
+        <Route path="/deletar/:id" children={<Deletar/>}/>
 
         <Redirect from="*" to="/home" />
       </Switch>

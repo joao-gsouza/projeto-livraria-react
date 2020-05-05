@@ -20,7 +20,7 @@ class CadastroPage extends React.Component{
             paginas: '',
             nome: '',
             preco: '',
-            categoria: []
+            categoria: ''
         }
 
         this.submitForm = this.submitForm.bind(this);
@@ -44,20 +44,20 @@ class CadastroPage extends React.Component{
     submitForm(event){
 
         event.preventDefault();
-
+        
         const livro = {
             codigo: this.state.codigo,
             paginas: this.state.paginas,
             nome: this.state.nome,
             preco: this.state.preco,
-            categoria: this.state.categoria
+            categoria: JSON.parse(this.state.categoria)
         }
 
         axios
-        .post('http://localhost:8080/livro', livro)
-        .then(() => {
-            this.props.history.push('/home');
-        })
+            .post('http://localhost:8080/livro', livro)
+            .then(() => {
+                this.props.history.push('/home');
+            })
 
     }
 
@@ -73,25 +73,11 @@ class CadastroPage extends React.Component{
 
     }
 
-    onChangeSelct(event){
-
-        const id = event.target.value;
-
-        axios
-        .get(`http://localhost:8080/categoria/${id}`)
-        .then(resp => {
-            this.setState({
-                categoria: resp.data
-            })
-        })
-
-    }
-
     render(){
 
         const listaCategorias = this.state.listaCategorias.map(categoria => {
             return(
-                <option value={categoria.id} key={categoria.id}>{categoria.nome}</option>
+                <option value={JSON.stringify(categoria)} key={categoria.id}>{categoria.nome}</option>
             );
         })
 
@@ -135,7 +121,7 @@ class CadastroPage extends React.Component{
                         <select 
                             name ="categoria" 
                             className="form-control form-control-sm"
-                            onChange={this.onChangeSelct}
+                            onChange={this.onChangeInput}
                             required={true}
                         >
                             <option hidden>Selecione a categoria</option>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class HomePage extends React.Component{
 
@@ -8,7 +8,8 @@ class HomePage extends React.Component{
         super(props);
 
         this.state = {
-            livros: []
+            livros: [],
+            toHome: false
         }
 
     };
@@ -26,7 +27,26 @@ class HomePage extends React.Component{
         })
     }
 
+    deletarLivro(id){
+        axios
+            .delete(`http://localhost:8080/livro/${id}`)
+            .then(() => {
+                this.setState({
+                    toHome: true
+                })
+            
+            })
+            .catch(() =>{
+                console.log("erro ao deletar")
+            })
+    }
+
     render(){
+
+        if(this.state.toHome){
+            return (<Redirect to="/"/>);
+            
+        }
 
         const lista = this.state.livros.map(livro => {
             return(
@@ -44,7 +64,9 @@ class HomePage extends React.Component{
                         {livro.preco}
                     </td>
                     <td>
-                        <Link to={'/editar/'+livro.id} className="btn btn-link">Editar</Link> | <button type="button" className="btn btn-link">Remover</button>
+                        <Link to={'/editar/'+livro.id} className="btn btn-link">Editar</Link> 
+                        | 
+                        <button type="button" className="btn btn-link" onClick={() => this.deletarLivro(livro.id)}>Remover</button>
                     </td>
                 </tr>
             );
